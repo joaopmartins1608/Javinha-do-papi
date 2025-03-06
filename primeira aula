@@ -1,0 +1,7 @@
+(https://onecompiler.com/java/43b2qh9md)
+
+public class HelloWorld {
+    public static void main(String[] args){
+        System.out.print("Hello World!!");
+    }
+}
