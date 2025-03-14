@@ -1,0 +1,22 @@
+
+        System.out.println("Enter up to 50 ages (enter a negative number to stop):");
+
+        for (int i = 0; i < 50; i++) {
+            System.out.print("Age " + (i+1) + ": ");
+            int age = scanner.nextInt();
+            if (age < 0) {
+                break;
+            }
+            ages[count] = age;
+            sum += age;
+            count++;
+        }
+
+        if (count > 0) {
+            double average = (double) sum / count;
+            System.out.println("The average age is: " + average);
+        } else {
+            System.out.println("No valid ages entered.");
+        }
+    }
+}
