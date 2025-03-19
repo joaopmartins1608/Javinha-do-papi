@@ -1,0 +1,11 @@
+public class carro {
+	string modelo;
+	string cor;
+	int ano;
+
+public void ligar() {
+	System.out.println("o carro" + modelo + "está ligado.");
+}
+public void mostrarInfo() {
+	System.out.println ("Modelo:" + modelo + ", cor: " + car "+ , ano:" + ano);
+}
