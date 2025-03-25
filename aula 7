@@ -1,0 +1,56 @@
+
+public class VetorNumerico {
+    private int[] vetor;
+    private int tamanho;
+
+    public VetorNumerico(int capacidade) {
+        vetor = new int[capacidade];
+        tamanho = 0;
+    }
+
+    // Método para adicionar um elemento ao vetor
+    public void adicionarElemento(int elemento) {
+        if (tamanho < vetor.length) {
+            vetor[tamanho] = elemento;
+            tamanho++;
+        } else {
+            System.out.println("Vetor cheio! Não é possível adicionar mais elementos.");
+        }
+    }
+
+    // Método para imprimir todos os elementos do vetor
+    public void imprimirVetor() {
+        System.out.print("Vetor: ");
+        for (int i = 0; i < tamanho; i++) {
+            System.out.print(vetor[i] + " ");
+        }
+        System.out.println();
+    }
+
+    // Método para alterar o valor de um elemento no vetor, dado o índice
+    public void alterarElemento(int indice, int novoValor) {
+        if (indice >= 0 && indice < tamanho) {
+            vetor[indice] = novoValor;
+        } else {
+            System.out.println("Índice inválido!");
+        }
+    }
+
+    public static void main(String[] args) {
+        VetorNumerico vetorNumerico = new VetorNumerico(10);
+
+        // Adicionando elementos ao vetor
+        vetorNumerico.adicionarElemento(5);
+        vetorNumerico.adicionarElemento(10);
+        vetorNumerico.adicionarElemento(15);
+
+        // Imprimindo o vetor
+        vetorNumerico.imprimirVetor();
+
+        // Alterando um valor no vetor
+        vetorNumerico.alterarElemento(1, 20);
+
+        // Imprimindo o vetor novamente
+        vetorNumerico.imprimirVetor();
+    }
+}
