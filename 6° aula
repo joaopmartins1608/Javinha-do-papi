@@ -1,1 +1,145 @@
+import java.util.Scanner;
 
+public class Pessoa {
+    private String nome;
+    private int idade;
+
+    // Métodos get e set para o atributo nome
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    // Métodos get e set para o atributo idade
+    public int getIdade() {
+        return idade;
+    }
+
+    public void setIdade(int idade) {
+        this.idade = idade;
+    }
+
+    // Método falar
+    public void falar() {
+        System.out.println("Olá, meu nome é " + nome + " e tenho " + idade + " anos.");
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Pessoa pessoa = new Pessoa();
+
+        // Perguntar o nome do usuário
+        System.out.print("Digite seu nome: ");
+        pessoa.setNome(scanner.nextLine());
+
+        // Perguntar a idade do usuário
+        System.out.print("Digite sua idade: ");
+        pessoa.setIdade(scanner.nextInt());
+
+        // Exibir a mensagem de apresentação
+        pessoa.falar();
+
+        scanner.close();
+    }
+}
+
+
+ex 2
+
+
+import java.util.Scanner;
+
+// Classe base para jogadores
+abstract class Jogador {
+    protected String nome;
+    protected int idade;
+    protected String posicao;
+
+    public Jogador(String nome, int idade, String posicao) {
+        this.nome = nome;
+        this.idade = idade;
+        this.posicao = posicao;
+    }
+
+    public void introduzir() {
+        System.out.println("Olá, meu nome é " + nome + ", tenho " + idade + " anos e jogo na posição de " + posicao + ".");
+    }
+
+    public abstract void treinar();
+
+    public abstract void jogar();
+}
+
+// Classe para jogadores de futebol
+class JogadorFutebol extends Jogador {
+    public JogadorFutebol(String nome, int idade, String posicao) {
+        super(nome, idade, posicao);
+    }
+
+    @Override
+    public void treinar() {
+        System.out.println(nome + " está treinando futebol no campo.");
+    }
+
+    @Override
+    public void jogar() {
+        System.out.println(nome + " está jogando uma partida de futebol.");
+    }
+}
+
+// Classe para jogadores de futsal
+class JogadorFutsal extends Jogador {
+    public JogadorFutsal(String nome, int idade, String posicao) {
+        super(nome, idade, posicao);
+    }
+
+    @Override
+    public void treinar() {
+        System.out.println(nome + " está treinando futsal na quadra.");
+    }
+
+    @Override
+    public void jogar() {
+        System.out.println(nome + " está jogando uma partida de futsal.");
+    }
+}
+
+// Classe principal
+public class SistemaJogadores {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Digite o nome do jogador:");
+        String nome = scanner.nextLine();
+
+        System.out.println("Digite a idade do jogador:");
+        int idade = scanner.nextInt();
+        scanner.nextLine(); // Consumir a quebra de linha
+
+        System.out.println("Digite a posição do jogador:");
+        String posicao = scanner.nextLine();
+
+        System.out.println("O jogador pratica qual esporte? (1 - Futebol, 2 - Futsal):");
+        int tipoEsporte = scanner.nextInt();
+
+        Jogador jogador;
+        if (tipoEsporte == 1) {
+            jogador = new JogadorFutebol(nome, idade, posicao);
+        } else if (tipoEsporte == 2) {
+            jogador = new JogadorFutsal(nome, idade, posicao);
+        } else {
+            System.out.println("Opção inválida.");
+            scanner.close();
+            return;
+        }
+
+        jogador.introduzir();
+        jogador.treinar();
+        jogador.jogar();
+
+        scanner.close();
+    }
+}
