@@ -1,0 +1,214 @@
+ex - 1
+public class ContaBancaria {
+    private int numero;
+    private String titular;
+    private double saldo;
+
+    public ContaBancaria(int numero, String titular) {
+        this.numero = numero;
+        this.titular = titular;
+        this.saldo = 0.0;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public String getTitular() {
+        return titular;
+    }
+
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void depositar(double valor) {
+        if (valor > 0) {
+            saldo += valor;
+            System.out.println("Depósito de R$" + valor + " realizado com sucesso.");
+        } else {
+            System.out.println("Valor de depósito inválido.");
+        }
+    }
+
+    public void sacar(double valor) {
+        if (valor > 0 && valor <= saldo) {
+            saldo -= valor;
+            System.out.println("Saque de R$" + valor + " realizado com sucesso.");
+        } else if (valor > saldo) {
+            System.out.println("Saldo insuficiente para saque.");
+        } else {
+            System.out.println("Valor de saque inválido.");
+        }
+    }
+}
+
+Ex - 2
+public class Funcionario {
+    private String nome;
+    private String cargo;
+    private double salario;
+
+    // Construtor
+    public Funcionario(String nome, String cargo, double salario) {
+        this.nome = nome;
+        this.cargo = cargo;
+        this.salario = salario;
+    }
+
+    // Getters
+    public String getNome() {
+        return nome;
+    }
+
+    public String getCargo() {
+        return cargo;
+    }
+
+    public double getSalario() {
+        return salario;
+    }
+
+    // Método para atualizar o salário com um aumento percentual
+    public void aplicarAumento(double percentual) {
+        if (percentual > 0) {
+            this.salario += this.salario * (percentual / 100);
+        } else {
+            throw new IllegalArgumentException("O percentual de aumento deve ser positivo.");
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Funcionario{" +
+                "nome='" + nome + '\'' +
+                ", cargo='" + cargo + '\'' +
+                ", salario=" + salario +
+                '}';
+    }
+}
+
+Ex - 3
+public class Livro {
+    private String titulo;
+    private String autor;
+    private final int numeroDePaginas;
+
+    public Livro(String titulo, String autor, int numeroDePaginas) {
+        if (numeroDePaginas <= 0) {
+            throw new IllegalArgumentException("O número de páginas deve ser maior que zero.");
+        }
+        this.titulo = titulo;
+        this.autor = autor;
+        this.numeroDePaginas = numeroDePaginas;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    public int getNumeroDePaginas() {
+        return numeroDePaginas;
+    }
+}
+
+Ex - 4
+public class Veiculo {
+    private String modelo;
+    private String marca;
+    private int velocidadeMaxima;
+    private int velocidadeAtual;
+
+    public Veiculo(String modelo, String marca, int velocidadeMaxima) {
+        this.modelo = modelo;
+        this.marca = marca;
+        this.velocidadeMaxima = velocidadeMaxima;
+        this.velocidadeAtual = 0; // Inicialmente, a velocidade é 0
+    }
+
+    public String getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public int getVelocidadeMaxima() {
+        return velocidadeMaxima;
+    }
+
+    public int getVelocidadeAtual() {
+        return velocidadeAtual;
+    }
+
+    public void alterarVelocidade(int novaVelocidade) {
+        if (novaVelocidade <= velocidadeMaxima) {
+            this.velocidadeAtual = novaVelocidade;
+        } else {
+            this.velocidadeAtual = velocidadeMaxima; // Garante que não ultrapasse a velocidade máxima
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "Veiculo{" +
+                "modelo='" + modelo + '\'' +
+                ", marca='" + marca + '\'' +
+                ", velocidadeMaxima=" + velocidadeMaxima +
+                ", velocidadeAtual=" + velocidadeAtual +
+                '}';
+    }
+}
+
+Ex - 5
+public class Aluno {
+    private String nome;
+    private double nota1;
+    private double nota2;
+    private double nota3;
+
+    public Aluno(String nome, double nota1, double nota2, double nota3) {
+        this.nome = nome;
+        this.nota1 = nota1;
+        this.nota2 = nota2;
+        this.nota3 = nota3;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public double calcularMediaFinal() {
+        return (nota1 + nota2 + nota3) / 3;
+    }
+
+    public void exibirInformacoes() {
+        System.out.println("Nome: " + nome);
+        System.out.println("Média Final: " + calcularMediaFinal());
+    }
+}
