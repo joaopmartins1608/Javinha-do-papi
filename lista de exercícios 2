@@ -1,0 +1,456 @@
+Ex - 1
+// Classe abstrata Dispositivo
+public abstract class Dispositivo {
+    private String nome;
+    private String enderecoIP;
+
+    public Dispositivo(String nome, String enderecoIP) {
+        this.nome = nome;
+        this.enderecoIP = enderecoIP;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getEnderecoIP() {
+        return enderecoIP;
+    }
+
+    // Método abstrato
+    public abstract void exibirInformacoes();
+}
+
+// Classe Computador, derivada de Dispositivo
+class Computador extends Dispositivo {
+    private String sistemaOperacional;
+
+    public Computador(String nome, String enderecoIP, String sistemaOperacional) {
+        super(nome, enderecoIP);
+        this.sistemaOperacional = sistemaOperacional;
+    }
+
+    @Override
+    public void exibirInformacoes() {
+        System.out.println("Dispositivo: Computador");
+        System.out.println("Nome: " + getNome());
+        System.out.println("Endereço IP: " + getEnderecoIP());
+        System.out.println("Sistema Operacional: " + sistemaOperacional);
+    }
+}
+
+// Classe Impressora, derivada de Dispositivo
+class Impressora extends Dispositivo {
+    private boolean ehColorida;
+
+    public Impressora(String nome, String enderecoIP, boolean ehColorida) {
+        super(nome, enderecoIP);
+        this.ehColorida = ehColorida;
+    }
+
+    @Override
+    public void exibirInformacoes() {
+        System.out.println("Dispositivo: Impressora");
+        System.out.println("Nome: " + getNome());
+        System.out.println("Endereço IP: " + getEnderecoIP());
+        System.out.println("Colorida: " + (ehColorida ? "Sim" : "Não"));
+    }
+}
+
+// Classe principal para teste
+public class Main {
+    public static void main(String[] args) {
+        // Criando objetos de Computador e Impressora
+        Computador computador = new Computador("PC-01", "192.168.0.10", "Windows 11");
+        Impressora impressora = new Impressora("Printer-01", "192.168.0.20", true);
+
+        // Exibindo informações
+        computador.exibirInformacoes();
+        System.out.println();
+        impressora.exibirInformacoes();
+    }
+}
+
+ex - 2
+// Classe abstrata Drone
+public abstract class Drone {
+    private String numeroSerie;
+    private double altitudeAtual;
+
+    public Drone(String numeroSerie, double altitudeAtual) {
+        this.numeroSerie = numeroSerie;
+        this.altitudeAtual = altitudeAtual;
+    }
+
+    public String getNumeroSerie() {
+        return numeroSerie;
+    }
+
+    public double getAltitudeAtual() {
+        return altitudeAtual;
+    }
+
+    public void setAltitudeAtual(double altitudeAtual) {
+        this.altitudeAtual = altitudeAtual;
+    }
+
+    // Método abstrato voar
+    public abstract void voar();
+
+    // Método abstrato relatorioStatus
+    public abstract void relatorioStatus();
+}
+
+// Classe DroneFotografico
+class DroneFotografico extends Drone {
+    private int resolucaoCamera;
+
+    public DroneFotografico(String numeroSerie, double altitudeAtual, int resolucaoCamera) {
+        super(numeroSerie, altitudeAtual);
+        this.resolucaoCamera = resolucaoCamera;
+    }
+
+    public int getResolucaoCamera() {
+        return resolucaoCamera;
+    }
+
+    @Override
+    public void voar() {
+        System.out.println("DroneFotografico está voando a uma altitude de " + getAltitudeAtual() + " metros.");
+    }
+
+    @Override
+    public void relatorioStatus() {
+        System.out.println("DroneFotografico:");
+        System.out.println("Número de Série: " + getNumeroSerie());
+        System.out.println("Altitude Atual: " + getAltitudeAtual() + " metros");
+        System.out.println("Resolução da Câmera: " + resolucaoCamera + " MP");
+    }
+}
+
+// Classe DroneEntrega
+class DroneEntrega extends Drone {
+    private double pesoMaximoCarga;
+
+    public DroneEntrega(String numeroSerie, double altitudeAtual, double pesoMaximoCarga) {
+        super(numeroSerie, altitudeAtual);
+        this.pesoMaximoCarga = pesoMaximoCarga;
+    }
+
+    public double getPesoMaximoCarga() {
+        return pesoMaximoCarga;
+    }
+
+    @Override
+    public void voar() {
+        System.out.println("DroneEntrega está voando a uma altitude de " + getAltitudeAtual() + " metros.");
+    }
+
+    @Override
+    public void relatorioStatus() {
+        System.out.println("DroneEntrega:");
+        System.out.println("Número de Série: " + getNumeroSerie());
+        System.out.println("Altitude Atual: " + getAltitudeAtual() + " metros");
+        System.out.println("Peso Máximo de Carga: " + pesoMaximoCarga + " kg");
+    }
+}
+
+// Classe principal para teste
+public class Main {
+    public static void main(String[] args) {
+        // Criando objetos dos drones
+        DroneFotografico droneFotografico = new DroneFotografico("DF12345", 50.0, 20);
+        DroneEntrega droneEntrega = new DroneEntrega("DE67890", 100.0, 5.0);
+
+        // Chamando métodos
+        droneFotografico.voar();
+        droneFotografico.relatorioStatus();
+
+        System.out.println();
+
+        droneEntrega.voar();
+        droneEntrega.relatorioStatus();
+    }
+}
+
+Ex - 3
+// Classe abstrata Sensor
+public abstract class Sensor {
+    private String id;
+
+    public Sensor(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    // Método abstrato para leitura de valor
+    public abstract String lerValor();
+}
+
+// Sensor de Umidade
+class SensorUmidade extends Sensor {
+    public SensorUmidade(String id) {
+        super(id);
+    }
+
+    @Override
+    public String lerValor() {
+        // Simulação de um valor de umidade entre 30% e 90%
+        double umidade = 30 + Math.random() * 60;
+        return String.format("Umidade: %.2f%%", umidade);
+    }
+}
+
+// Sensor de Temperatura
+class SensorTemperatura extends Sensor {
+    public SensorTemperatura(String id) {
+        super(id);
+    }
+
+    @Override
+    public String lerValor() {
+        // Simulação de um valor de temperatura entre 15°C e 35°C
+        double temperatura = 15 + Math.random() * 20;
+        return String.format("Temperatura: %.2f°C", temperatura);
+    }
+}
+
+// Sensor de Luminosidade
+class SensorLuminosidade extends Sensor {
+    public SensorLuminosidade(String id) {
+        super(id);
+    }
+
+    @Override
+    public String lerValor() {
+        // Simulação de um valor de luminosidade entre 100 e 1000 lux
+        double luminosidade = 100 + Math.random() * 900;
+        return String.format("Luminosidade: %.2f lux", luminosidade);
+    }
+}
+
+// Classe principal para teste
+public class EstufaAutomatizada {
+    public static void main(String[] args) {
+        // Criando sensores
+        Sensor sensorUmidade = new SensorUmidade("Umidade-01");
+        Sensor sensorTemperatura = new SensorTemperatura("Temperatura-01");
+        Sensor sensorLuminosidade = new SensorLuminosidade("Luminosidade-01");
+
+        // Lendo valores dos sensores
+        System.out.println(sensorUmidade.lerValor());
+        System.out.println(sensorTemperatura.lerValor());
+        System.out.println(sensorLuminosidade.lerValor());
+    }
+}
+
+Ex - 4
+// Classe abstrata Container
+public abstract class Container {
+    private String codigoUnico;
+    private double peso;
+    private String destino;
+
+    public Container(String codigoUnico, double peso, String destino) {
+        this.codigoUnico = codigoUnico;
+        this.peso = peso;
+        this.destino = destino;
+    }
+
+    public String getCodigoUnico() {
+        return codigoUnico;
+    }
+
+    public double getPeso() {
+        return peso;
+    }
+
+    public String getDestino() {
+        return destino;
+    }
+
+    // Método abstrato para verificar condições
+    public abstract String verificarCondicoes();
+}
+
+// Classe ContainerRefrigerado
+class ContainerRefrigerado extends Container {
+    private double temperaturaMinima;
+    private double temperaturaMaxima;
+
+    public ContainerRefrigerado(String codigoUnico, double peso, String destino, double temperaturaMinima, double temperaturaMaxima) {
+        super(codigoUnico, peso, destino);
+        this.temperaturaMinima = temperaturaMinima;
+        this.temperaturaMaxima = temperaturaMaxima;
+    }
+
+    public double getTemperaturaMinima() {
+        return temperaturaMinima;
+    }
+
+    public double getTemperaturaMaxima() {
+        return temperaturaMaxima;
+    }
+
+    @Override
+    public String verificarCondicoes() {
+        return String.format("Container Refrigerado [%s]: Temperatura deve estar entre %.2f°C e %.2f°C.",
+                getCodigoUnico(), temperaturaMinima, temperaturaMaxima);
+    }
+}
+
+// Classe ContainerCargaPerigosa
+class ContainerCargaPerigosa extends Container {
+    private int nivelRisco;
+
+    public ContainerCargaPerigosa(String codigoUnico, double peso, String destino, int nivelRisco) {
+        super(codigoUnico, peso, destino);
+        if (nivelRisco < 1 || nivelRisco > 5) {
+            throw new IllegalArgumentException("Nível de risco deve estar entre 1 e 5.");
+        }
+        this.nivelRisco = nivelRisco;
+    }
+
+    public int getNivelRisco() {
+        return nivelRisco;
+    }
+
+    @Override
+    public String verificarCondicoes() {
+        return String.format("Container de Carga Perigosa [%s]: Nível de risco %d.",
+                getCodigoUnico(), nivelRisco);
+    }
+}
+
+// Classe principal para teste
+public class SistemaRastreamentoContainers {
+    public static void main(String[] args) {
+        // Criando containers
+        Container containerRefrigerado = new ContainerRefrigerado("RF123", 2000.0, "Porto A", -10.0, 5.0);
+        Container containerCargaPerigosa = new ContainerCargaPerigosa("CP456", 1500.0, "Porto B", 3);
+
+        // Verificando condições de cada container
+        System.out.println(containerRefrigerado.verificarCondicoes());
+        System.out.println(containerCargaPerigosa.verificarCondicoes());
+    }
+}
+
+Ex - 5
+import java.time.LocalDate;
+
+// Classe abstrata Pagamento
+public abstract class Pagamento {
+    private double valor;
+    private LocalDate data;
+
+    public Pagamento(double valor, LocalDate data) {
+        this.valor = valor;
+        this.data = data;
+    }
+
+    public double getValor() {
+        return valor;
+    }
+
+    public LocalDate getData() {
+        return data;
+    }
+
+    // Método abstrato para processamento do pagamento
+    public abstract void processar();
+}
+
+// Subclasse PagamentoCredito
+class PagamentoCredito extends Pagamento {
+    private double taxaJuros;
+
+    public PagamentoCredito(double valor, LocalDate data, double taxaJuros) {
+        super(valor, data);
+        this.taxaJuros = taxaJuros;
+    }
+
+    public double getTaxaJuros() {
+        return taxaJuros;
+    }
+
+    @Override
+    public void processar() {
+        double valorFinal = getValor() + (getValor() * taxaJuros / 100);
+        System.out.println("Pagamento via Crédito processado:");
+        System.out.println("Valor Original: R$" + getValor());
+        System.out.println("Taxa de Juros: " + taxaJuros + "%");
+        System.out.println("Valor Final: R$" + valorFinal);
+    }
+}
+
+// Subclasse PagamentoPix
+class PagamentoPix extends Pagamento {
+    private String chavePix;
+
+    public PagamentoPix(double valor, LocalDate data, String chavePix) {
+        super(valor, data);
+        this.chavePix = chavePix;
+    }
+
+    public String getChavePix() {
+        return chavePix;
+    }
+
+    @Override
+    public void processar() {
+        System.out.println("Pagamento via Pix processado:");
+        System.out.println("Valor: R$" + getValor());
+        System.out.println("Chave Pix: " + chavePix);
+        System.out.println("Data: " + getData());
+    }
+}
+
+// Subclasse PagamentoInternacional
+class PagamentoInternacional extends Pagamento {
+    private double taxaConversao;
+    private String moedaDestino;
+
+    public PagamentoInternacional(double valor, LocalDate data, double taxaConversao, String moedaDestino) {
+        super(valor, data);
+        this.taxaConversao = taxaConversao;
+        this.moedaDestino = moedaDestino;
+    }
+
+    public double getTaxaConversao() {
+        return taxaConversao;
+    }
+
+    public String getMoedaDestino() {
+        return moedaDestino;
+    }
+
+    @Override
+    public void processar() {
+        double valorConvertido = getValor() * taxaConversao;
+        System.out.println("Pagamento Internacional processado:");
+        System.out.println("Valor em Reais: R$" + getValor());
+        System.out.println("Moeda Destino: " + moedaDestino);
+        System.out.println("Taxa de Conversão: " + taxaConversao);
+        System.out.println("Valor Convertido: " + moedaDestino + " " + valorConvertido);
+    }
+}
+
+// Classe principal para teste
+public class SistemaPagamentos {
+    public static void main(String[] args) {
+        // Criando pagamentos
+        Pagamento pagamentoCredito = new PagamentoCredito(500.0, LocalDate.now(), 2.5);
+        Pagamento pagamentoPix = new PagamentoPix(300.0, LocalDate.now(), "joao123@banco.com");
+        Pagamento pagamentoInternacional = new PagamentoInternacional(1000.0, LocalDate.now(), 0.19, "USD");
+
+        // Processando pagamentos
+        pagamentoCredito.processar();
+        System.out.println();
+        pagamentoPix.processar();
+        System.out.println();
+        pagamentoInternacional.processar();
+    }
+}
