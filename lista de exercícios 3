@@ -1,3 +1,5 @@
+Ex - 1
+
 // Classe abstrata Dispositivo
 abstract class Dispositivo {
     private String nome;
@@ -73,5 +75,175 @@ public class Main {
         computador.exibirInformacoes();
         System.out.println();
         impressora.exibirInformacoes();
+    }
+}
+
+Ex - 2
+// Classe abstrata Sensor
+abstract class Sensor {
+    private String id;
+
+    public Sensor(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    // Método abstrato para leitura do valor
+    public abstract double lerValor();
+}
+
+// Sensor de Umidade
+class SensorUmidade extends Sensor {
+    public SensorUmidade(String id) {
+        super(id);
+    }
+
+    @Override
+    public double lerValor() {
+        // Simula um valor de umidade entre 30% e 70%
+        return 30 + Math.random() * 40;
+    }
+}
+
+// Sensor de Temperatura
+class SensorTemperatura extends Sensor {
+    public SensorTemperatura(String id) {
+        super(id);
+    }
+
+    @Override
+    public double lerValor() {
+        // Simula um valor de temperatura entre 15°C e 35°C
+        return 15 + Math.random() * 20;
+    }
+}
+
+// Sensor de Luminosidade
+class SensorLuminosidade extends Sensor {
+    public SensorLuminosidade(String id) {
+        super(id);
+    }
+
+    @Override
+    public double lerValor() {
+        // Simula um valor de luminosidade entre 100 e 1000 lux
+        return 100 + Math.random() * 900;
+    }
+}
+
+// Classe principal para testar os sensores
+public class EstufaAutomatizada {
+    public static void main(String[] args) {
+        Sensor sensorUmidade = new SensorUmidade("UMD-01");
+        Sensor sensorTemperatura = new SensorTemperatura("TMP-01");
+        Sensor sensorLuminosidade = new SensorLuminosidade("LUX-01");
+
+        System.out.println("Leitura dos Sensores:");
+        System.out.println("Sensor de Umidade (" + sensorUmidade.getId() + "): " + sensorUmidade.lerValor() + "%");
+        System.out.println("Sensor de Temperatura (" + sensorTemperatura.getId() + "): " + sensorTemperatura.lerValor() + "°C");
+        System.out.println("Sensor de Luminosidade (" + sensorLuminosidade.getId() + "): " + sensorLuminosidade.lerValor() + " lux");
+    }
+}
+
+Ex - 3
+// Classe abstrata Container
+abstract class Container {
+    private String codigoUnico;
+    private double peso;
+    private String destino;
+
+    public Container(String codigoUnico, double peso, String destino) {
+        this.codigoUnico = codigoUnico;
+        this.peso = peso;
+        this.destino = destino;
+    }
+
+    public String getCodigoUnico() {
+        return codigoUnico;
+    }
+
+    public double getPeso() {
+        return peso;
+    }
+
+    public String getDestino() {
+        return destino;
+    }
+
+    // Método abstrato para verificar condições
+    public abstract String verificarCondicoes();
+}
+
+// Classe ContainerRefrigerado
+class ContainerRefrigerado extends Container {
+    private double temperaturaMinima;
+    private double temperaturaMaxima;
+
+    public ContainerRefrigerado(String codigoUnico, double peso, String destino, double temperaturaMinima, double temperaturaMaxima) {
+        super(codigoUnico, peso, destino);
+        this.temperaturaMinima = temperaturaMinima;
+        this.temperaturaMaxima = temperaturaMaxima;
+    }
+
+    public double getTemperaturaMinima() {
+        return temperaturaMinima;
+    }
+
+    public double getTemperaturaMaxima() {
+        return temperaturaMaxima;
+    }
+
+    @Override
+    public String verificarCondicoes() {
+        return "Temperatura deve estar entre " + temperaturaMinima + "°C e " + temperaturaMaxima + "°C.";
+    }
+}
+
+// Classe ContainerCargaPerigosa
+class ContainerCargaPerigosa extends Container {
+    private int nivelRisco; // De 1 a 5
+
+    public ContainerCargaPerigosa(String codigoUnico, double peso, String destino, int nivelRisco) {
+        super(codigoUnico, peso, destino);
+        if (nivelRisco < 1 || nivelRisco > 5) {
+            throw new IllegalArgumentException("Nível de risco deve estar entre 1 e 5.");
+        }
+        this.nivelRisco = nivelRisco;
+    }
+
+    public int getNivelRisco() {
+        return nivelRisco;
+    }
+
+    @Override
+    public String verificarCondicoes() {
+        return "Nível de risco: " + nivelRisco + ". Certifique-se de seguir os protocolos de segurança.";
+    }
+}
+
+// Classe principal para testar o sistema
+public class RastreamentoContainers {
+    public static void main(String[] args) {
+        // Criando containers
+        Container containerRefrigerado = new ContainerRefrigerado("REF-001", 2000, "Porto de Santos", -20, 5);
+        Container containerCargaPerigosa = new ContainerCargaPerigosa("PER-001", 1500, "Porto de Rotterdam", 4);
+
+        // Exibindo informações e verificando condições
+        System.out.println("Container Refrigerado:");
+        System.out.println("Código: " + containerRefrigerado.getCodigoUnico());
+        System.out.println("Peso: " + containerRefrigerado.getPeso() + " kg");
+        System.out.println("Destino: " + containerRefrigerado.getDestino());
+        System.out.println(containerRefrigerado.verificarCondicoes());
+
+        System.out.println();
+
+        System.out.println("Container de Carga Perigosa:");
+        System.out.println("Código: " + containerCargaPerigosa.getCodigoUnico());
+        System.out.println("Peso: " + containerCargaPerigosa.getPeso() + " kg");
+        System.out.println("Destino: " + containerCargaPerigosa.getDestino());
+        System.out.println(containerCargaPerigosa.verificarCondicoes());
     }
 }
