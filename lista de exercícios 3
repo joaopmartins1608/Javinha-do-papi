@@ -1,0 +1,77 @@
+// Classe abstrata Dispositivo
+abstract class Dispositivo {
+    private String nome;
+    private String enderecoIP;
+
+    public Dispositivo(String nome, String enderecoIP) {
+        this.nome = nome;
+        this.enderecoIP = enderecoIP;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getEnderecoIP() {
+        return enderecoIP;
+    }
+
+    // Método abstrato para exibir informações
+    public abstract void exibirInformacoes();
+}
+
+// Classe derivada Computador
+class Computador extends Dispositivo {
+    private String sistemaOperacional;
+
+    public Computador(String nome, String enderecoIP, String sistemaOperacional) {
+        super(nome, enderecoIP);
+        this.sistemaOperacional = sistemaOperacional;
+    }
+
+    public String getSistemaOperacional() {
+        return sistemaOperacional;
+    }
+
+    @Override
+    public void exibirInformacoes() {
+        System.out.println("Computador:");
+        System.out.println("Nome: " + getNome());
+        System.out.println("Endereço IP: " + getEnderecoIP());
+        System.out.println("Sistema Operacional: " + sistemaOperacional);
+    }
+}
+
+// Classe derivada Impressora
+class Impressora extends Dispositivo {
+    private boolean ehColorida;
+
+    public Impressora(String nome, String enderecoIP, boolean ehColorida) {
+        super(nome, enderecoIP);
+        this.ehColorida = ehColorida;
+    }
+
+    public boolean isEhColorida() {
+        return ehColorida;
+    }
+
+    @Override
+    public void exibirInformacoes() {
+        System.out.println("Impressora:");
+        System.out.println("Nome: " + getNome());
+        System.out.println("Endereço IP: " + getEnderecoIP());
+        System.out.println("Colorida: " + (ehColorida ? "Sim" : "Não"));
+    }
+}
+
+// Classe principal para testar
+public class Main {
+    public static void main(String[] args) {
+        Computador computador = new Computador("PC-01", "192.168.0.10", "Windows 10");
+        Impressora impressora = new Impressora("Printer-01", "192.168.0.20", true);
+
+        computador.exibirInformacoes();
+        System.out.println();
+        impressora.exibirInformacoes();
+    }
+}
