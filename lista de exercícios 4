@@ -1,0 +1,93 @@
+ex - 1
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+class Aluno {
+    private String nome;
+    private int idade;
+
+    public Aluno(String nome, int idade) {
+        this.nome = nome;
+        this.idade = idade;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public int getIdade() {
+        return idade;
+    }
+
+    @Override
+    public String toString() {
+        return "Aluno{" +
+                "nome='" + nome + '\'' +
+                ", idade=" + idade +
+                '}';
+    }
+}
+
+class Curso {
+    private String nome;
+    private List<Aluno> alunos;
+
+    public Curso(String nome) {
+        this.nome = nome;
+        this.alunos = new ArrayList<>();
+    }
+
+    public void adicionarAluno(Aluno aluno) {
+        alunos.add(aluno);
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public List<Aluno> getAlunos() {
+        return alunos;
+    }
+
+    @Override
+    public String toString() {
+        return "Curso{" +
+                "nome='" + nome + '\'' +
+                ", alunos=" + alunos +
+                '}';
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Map<String, Curso> cursos = new HashMap<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader("alunos.txt"))) {
+            String linha;
+            while ((linha = br.readLine()) != null) {
+                String[] partes = linha.split(";");
+                if (partes.length == 3) {
+                    String nomeAluno = partes[0].trim();
+                    int idade = Integer.parseInt(partes[1].trim());
+                    String nomeCurso = partes[2].trim();
+
+                    Curso curso = cursos.computeIfAbsent(nomeCurso, Curso::new);
+                    Aluno aluno = new Aluno(nomeAluno, idade);
+                    curso.adicionarAluno(aluno);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Erro ao ler o arquivo: " + e.getMessage());
+        }
+
+        // Exibir os cursos e seus alunos
+        for (Curso curso : cursos.values()) {
+            System.out.println(curso);
+        }
+    }
+}
